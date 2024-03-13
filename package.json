@@ -1,0 +1,16 @@
+{
+  "name": "landing-e-shop-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.mjs",
+  "scripts": {
+    "start": "node app.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dzero I",
+  "license": "ISC",
+  "dependencies": {
+    "pg-promise": "^11.5.4",
+    "postgres": "^3.4.3"
+  }
+}
