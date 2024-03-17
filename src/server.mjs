@@ -2,43 +2,50 @@ import { createServer } from 'node:http'
 import { readFile } from 'node:fs/promises';
 import { getProductById } from "./modules/eshop.mjs";
 
-// const server = createServer( async (req, res) => {
-//     let html
-//     switch (req.url) {
-//       case "/":
-//         let product = await getProductById(1)
-//         html = (await readFile("./templates/home.html")).toString(); 
-//         html = html.replace(
-//           "{% PRODUCT %}",
-//           `<h1>${product.name}</h1>
-//         <img src="/images/${product.img}"/>
-//         <div>
-//         ${product.standardPrice.amount}
-//         ${product.standardPrice.currency}
-//         </div>`
-//         );
-//         break;
-//       case "/order":
-//         html = `<h1>Order page</h1>`;
-//         break;
-//       case "/order":
-//         html = `<h1>Order page</h1>`;
-//         break;
-//       case "/contacts":
-//         html = `<h1>Contact page</h1>`;
-//         break;
-//       default:
-//         html = `Ooops, page not found`;
-//         res.writeHead(404);
-//     }
+const server = createServer( async (req, res) => {
+    let html
+    switch (true) {
+      case req.url === "/":
+        let product = await getProductById(1);
+        html = (await readFile("./templates/home.html")).toString();
+        html = html.replace(
+          "{% PRODUCT %}",
+          `<h1>${product.name}</h1>
+        <img src="/images/${product.image}" width="200"/>
+        <div>
+        ${product.standardPrice.amount}
+        ${product.standardPrice.currency}
+        </div>
+        <hr />
+        <a href="/order">ORDER</a>`
+        );
+        break;
+      case req.url.startsWith("/images/"):
+        let parts = req.url.split("/");
+        let image = parts.pop();
+        html = await readFile(`./images/${image}`);
+        break;
+      case req.url === "/order":
+        html = (await readFile("./templates/order.html")).toString();
+        break;
+      case req.url === "/pay":
+        html = "TO BE PAYED!!!";
+        break;
+      case req.url === "/contacts":
+        html = `<h1>Contact page</h1>`;
+        break;
+      default:
+        html = `Ooops, page not found`;
+        res.writeHead(404);
+    }
     
-//     res.end(html)
-// })
+    res.end(html)
+})
 
-// server.listen("3000", "localhost")
+server.listen("3000", "localhost")
 
 
-
+/*
 const server = createServer( async (req, res) => {
     // HW: rewrite this code using switch/case
     let html
@@ -81,3 +88,4 @@ const server = createServer( async (req, res) => {
 })
 
 server.listen("3000", "localhost");
+*/
