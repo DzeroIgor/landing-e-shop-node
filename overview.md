@@ -1,7 +1,9 @@
 
-
-
-
+-- docker-compose up // lasare container
+-- C:\Users\PC\OneDrive\Desktop\landing-e-shop-node> node src\server.mjs // lansare app
+-- psql -U postgres -h localhost -p 6032 
+   + password
+-- \c node_landing_db
 
 
 

@@ -11,14 +11,6 @@ class Payment {
     this.state = state;
     this.priceStandard = priceStandard;
   }
-
-  getOrderId() {
-    return this.order.id;
-  }
-
-  getClientId() {
-    return this.client.id;
-  }
 }
 
 export { Payment };
