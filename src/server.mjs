@@ -7,7 +7,7 @@ const server = createServer( async (req, res) => {
     switch (true) {
       case req.url === "/":
         let product = await getProductById(1);
-        html = (await readFile("./templates/home.html")).toString();
+        html = await readFile("./templates/home.html", "utf8"); // (await readFile("./templates/home.html")).toString();
         html = html.replace(
           "{% PRODUCT %}",
           `<h1>${product.name}</h1>
@@ -26,7 +26,7 @@ const server = createServer( async (req, res) => {
         html = await readFile(`./images/${image}`);
         break;
       case req.url === "/order":
-        html = (await readFile("./templates/order.html")).toString();
+        html = await readFile("./templates/order.html", "utf8"); // (await readFile("./templates/order.html")).toString();
         break;
       case req.url === "/pay":
         html = "TO BE PAYED!!!";
